@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+<meta name="theme-color" content="#0e1015" media="(prefers-color-scheme: dark)" />
+<meta name="theme-color" content="#0ea5e9" media="(prefers-color-scheme: light)" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="取件助手" />
+<meta name="description" content="记录快递取件信息，按地点分级归类，一键标记已取" />
+<link rel="manifest" href="./manifest.webmanifest" />
+<link rel="icon" type="image/svg+xml" href="./icon.svg" />
+<link rel="apple-touch-icon" href="./icon-180.png" />
+<link rel="stylesheet" href="./styles.css?v=1.0.0" />
+<title>取件助手</title>
+</head>
+<body>
+<div class="app">
+
+  <header class="topbar">
+    <div class="app-title">
+      <h1>取件助手</h1>
+      <p id="pendingSub">—</p>
+    </div>
+    <div class="top-stat">
+      <b id="pendingCount">0</b>
+      <span>待取</span>
+    </div>
+  </header>
+
+  <main class="content">
+    <section class="view" id="view-pending">
+      <div id="pendingList"></div>
+      <div class="empty" id="emptyState">
+        <div class="empty-icon">📦</div>
+        <p class="empty-title">还没有待取的快递</p>
+        <p class="empty-sub">点右下角的 <b>+</b> 添加第一条<br />取货地点用 <b>/</b> 分级，如「蜂巢柜/1号柜」</p>
+      </div>
+
+      <section class="done-section" id="doneSection" hidden>
+        <button class="done-toggle" id="doneToggle">
+          <span class="done-toggle-label">已取 <b id="doneCount">0</b> 件</span>
+          <span class="caret" id="doneCaret">▾</span>
+        </button>
+        <div id="doneList" class="done-list" hidden></div>
+      </section>
+    </section>
+
+    <section class="view" id="view-me" hidden>
+      <div class="stat-grid">
+        <div class="stat-card"><b id="statPending">0</b><span>待取</span></div>
+        <div class="stat-card"><b id="statDone">0</b><span>已取</span></div>
+        <div class="stat-card"><b id="statTotal">0</b><span>累计</span></div>
+        <div class="stat-card"><b id="statLoc">0</b><span>地点数</span></div>
+      </div>
+
+      <h2 class="sec-title">数据</h2>
+      <div class="panel">
+        <div class="panel-row"><span>同步状态</span><span class="sync" id="syncText">本地已保存</span></div>
+        <div class="panel-row"><span>存储位置</span><span class="muted">本机 + 服务端双备份</span></div>
+        <button class="ghost-btn" id="installBtn">把它装到手机桌面</button>
+        <button class="ghost-btn" id="exportBtn">导出全部记录（JSON）</button>
+        <p class="panel-note">数据同时保存在手机本地和服务器，换设备打开同一网址也会同步。装到桌面后全屏运行、没有地址栏，断网也能查看记录。</p>
+      </div>
+    </section>
+  </main>
+
+  <button class="fab" id="fab" aria-label="添加取件">+</button>
+
+  <nav class="tabbar">
+    <button class="tab active" data-view="pending">待取</button>
+    <button class="tab" data-view="me">我的</button>
+  </nav>
+
+  <div class="toast" id="toast"></div>
+</div>
+
+<!-- 添加取件表单（底部弹层） -->
+<div class="sheet-mask" id="sheetMask" hidden>
+  <div class="sheet">
+    <div class="sheet-handle"></div>
+    <h3>添加取件</h3>
+    <label class="field">
+      <span>快递名称</span>
+      <input id="fName" type="text" placeholder="如：顺丰 / 京东 / 妈妈的包裹" autocomplete="off" maxlength="40" />
+    </label>
+    <label class="field">
+      <span>取货地点</span>
+      <input id="fLoc" type="text" placeholder="蜂巢柜/1号柜  （用 / 分级）" autocomplete="off" maxlength="60" />
+    </label>
+    <label class="field">
+      <span>取货码</span>
+      <input id="fCode" type="text" placeholder="如：8-2-3018" autocomplete="off" maxlength="30" />
+    </label>
+    <div class="sheet-actions">
+      <button class="gbtn" id="cancelAdd">取消</button>
+      <button class="gbtn primary" id="confirmAdd">添加</button>
+    </div>
+  </div>
+</div>
+
+<!-- 装到桌面引导 -->
+<div class="guide-mask" id="guideMask" hidden>
+  <div class="guide-card">
+    <div class="guide-icon">📦</div>
+    <h3>装到手机桌面</h3>
+    <div class="guide-body" id="guideBody"></div>
+    <div class="guide-actions">
+      <button class="gbtn" id="guideLater">以后再说</button>
+      <button class="gbtn primary" id="guideClose">知道了</button>
+    </div>
+  </div>
+</div>
+
+<script src="./app.js?v=1.0.0"></script>
+</body>
+</html>
