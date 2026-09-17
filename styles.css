@@ -43,6 +43,7 @@ html, body {
   margin: 0; padding: 0;
   background: var(--bg); color: var(--text);
   font-family: var(--font-serif);
+  font-weight: 500;
   -webkit-font-smoothing: antialiased;
   overscroll-behavior-y: none;
 }
