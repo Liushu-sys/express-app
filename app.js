@@ -122,6 +122,16 @@
     commit();
   }
 
+  /** 取件动效：圆点立即变绿 → 卡片放大轻晃掉落 → 动画结束后更新状态沉入已取区 */
+  var REDUCED_MOTION = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function playDropThenDone(card, id) {
+    var dot = card.querySelector('.dot');
+    if (dot) dot.classList.add('on');
+    if (REDUCED_MOTION) { toggleDone(id); return; }
+    card.classList.add('dropping');
+    setTimeout(function () { toggleDone(id); }, 540);
+  }
+
   function removePackage(id) {
     var idx = -1;
     state.packages.forEach(function (p, i) { if (p.id === id) idx = i; });
@@ -308,7 +318,10 @@
     var li = e.target.closest('.pkg-item');
     if (!li) return;
     var id = li.dataset.id;
-    if (btn.dataset.act === 'toggle') toggleDone(id);
+    if (btn.dataset.act === 'toggle') {
+      if (li.classList.contains('dropping')) return; // 动画进行中，防连点
+      playDropThenDone(li, id);
+    }
     else if (btn.dataset.act === 'del') removePackage(id);
   });
   $('doneList').addEventListener('click', function (e) {

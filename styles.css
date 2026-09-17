@@ -182,13 +182,20 @@ button { font-family: inherit; }
   background: var(--success); border-color: var(--success);
   animation: pop .32s cubic-bezier(.34, 1.56, .64, 1);
 }
-.dot.on::after {
-  content: ''; position: absolute; left: 6px; top: 3px;
-  width: 7px; height: 12px;
-  border: solid #fff; border-width: 0 2.5px 2.5px 0;
-  transform: rotate(45deg);
-}
 @keyframes pop { 0% { transform: scale(.55); } 60% { transform: scale(1.18); } 100% { transform: scale(1); } }
+
+/* 取件动效：放大 → 轻晃 → 掉落，动画结束后卡片移除、沉入已取区 */
+.pkg-item.dropping {
+  animation: pkg-drop .54s ease forwards;
+}
+@keyframes pkg-drop {
+  0%   { transform: scale(1) translateY(0); opacity: 1; }
+  22%  { transform: scale(1.035) translateY(0); opacity: 1; }   /* 稍微放大 */
+  38%  { transform: scale(1.03) rotate(.8deg); }                /* 轻轻晃动 */
+  54%  { transform: scale(1.025) rotate(-.7deg); }
+  70%  { transform: scale(1.02) rotate(.3deg); opacity: 1; }
+  100% { transform: scale(1) translateY(26px); opacity: 0; }    /* 掉落消失 */
+}
 
 .del-btn {
   flex: 0 0 auto;
