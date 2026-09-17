@@ -1,5 +1,5 @@
 /* 取件助手 · Service Worker：缓存页面壳，支持离线打开 */
-var VERSION = '1.0.1';
+var VERSION = '1.1.0';
 var CACHE = 'pickup-' + VERSION;
 var SHELL = [
   './',
@@ -48,7 +48,7 @@ self.addEventListener('fetch', function (e) {
     e.respondWith(
       fetch(e.request)
         .then(function (res) { return cachePut(e.request, res); })
-        .catch(function () { return caches.match('/index.html').then(function (r) { return r || caches.match('/'); }); })
+        .catch(function () { return caches.match('./index.html').then(function (r) { return r || caches.match('./'); }); })
     );
     return;
   }

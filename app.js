@@ -161,29 +161,27 @@
   }
 
   function renderItem(it) {
-    var codeHtml = it.code ? '<span class="pkg-code">' + escapeHtml(it.code) + '</span>' : '';
-    var locHtml = '<span class="pkg-loc">📍 ' + escapeHtml(it.location) + '</span>';
+    var codeHtml = it.code ? '<span class="pkg-code" aria-label="取货码">' + escapeHtml(it.code) + '</span>' : '';
     return '<li class="pkg-item" data-id="' + it.id + '">' +
       '<button class="dot' + (it.done ? ' on' : '') + '" data-act="toggle" aria-label="标记已取"></button>' +
       '<div class="pkg-body">' +
         '<div class="pkg-name">' + escapeHtml(it.name) + '</div>' +
-        '<div class="pkg-meta">' + codeHtml + locHtml + '</div>' +
+        '<div class="pkg-sub">📍 ' + escapeHtml(it.location) + '</div>' +
       '</div>' +
+      codeHtml +
       '<button class="del-btn" data-act="del" aria-label="删除">×</button>' +
       '</li>';
   }
 
   function renderDoneItem(it) {
-    var codeHtml = it.code ? '<span class="pkg-code">' + escapeHtml(it.code) + '</span>' : '';
+    var codeHtml = it.code ? '<span class="pkg-code pkg-code-sm">' + escapeHtml(it.code) + '</span>' : '';
     return '<li class="pkg-item" data-id="' + it.id + '">' +
       '<button class="dot on" data-act="toggle" aria-label="恢复"></button>' +
       '<div class="pkg-body">' +
         '<div class="pkg-name">' + escapeHtml(it.name) + '</div>' +
-        '<div class="pkg-meta">' + codeHtml +
-          '<span class="pkg-loc">📍 ' + escapeHtml(it.location) + '</span>' +
-          '<span class="pkg-loc">✓ ' + fmtTime(it.doneAt) + '</span>' +
-        '</div>' +
+        '<div class="pkg-sub">📍 ' + escapeHtml(it.location) + ' · ✓ ' + fmtTime(it.doneAt) + ' 已取</div>' +
       '</div>' +
+      codeHtml +
       '<button class="restore-btn" data-act="toggle">恢复</button>' +
       '</li>';
   }
