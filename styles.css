@@ -130,25 +130,18 @@ button { font-family: inherit; }
 /* ---------------- 快递条目：内嵌分组列表 ---------------- */
 .pkg-list {
   list-style: none; margin: 0; padding: 0;
-  background: var(--card);
-  border-radius: var(--radius);
-  overflow: hidden;
-  border: 1px solid var(--hairline);
 }
 .pkg-item {
   position: relative;
   display: flex; align-items: center; gap: 12px;
   padding: 13px 14px;
-  transition: background .12s ease;
+  background: var(--card);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius);
+  margin-bottom: 8px;
+  transition: background .12s ease, box-shadow .2s ease;
 }
 .pkg-item:active { background: var(--fill); }
-.pkg-item + .pkg-item::after {
-  content: '';
-  position: absolute; top: 0; left: 62px; right: 0;
-  height: 1px;
-  background: var(--hairline);
-  opacity: .6;
-}
 .pkg-body { flex: 1; min-width: 0; }
 .pkg-name { font-size: 16px; font-weight: 800; line-height: 1.35; word-break: break-word; }
 .pkg-sub { margin-top: 2px; font-size: 12.5px; color: var(--text-faint); word-break: break-word; }
@@ -187,6 +180,8 @@ button { font-family: inherit; }
 /* 取件动效：放大 → 轻晃 → 掉落，动画结束后卡片移除、沉入已取区 */
 .pkg-item.dropping {
   animation: pkg-drop .54s ease forwards;
+  z-index: 1;
+  box-shadow: 0 10px 24px rgba(38, 38, 36, .16);   /* 掉落时浮起，与下方卡片拉开层次 */
 }
 @keyframes pkg-drop {
   0%   { transform: scale(1) translateY(0); opacity: 1; }
