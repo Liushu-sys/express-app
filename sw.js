@@ -1,5 +1,5 @@
 /* 取件助手 · Service Worker：缓存页面壳，支持离线打开 */
-var VERSION = '1.0.0';
+var VERSION = '1.0.1';
 var CACHE = 'pickup-' + VERSION;
 var SHELL = [
   './',
