@@ -15,7 +15,7 @@
   --fill: rgba(31, 30, 29, 0.055);
   --radius: 14px;
   --tabbar-bg: color-mix(in srgb, #faf9f5 84%, transparent);
-  --font-serif: 'Songti SC', 'Noto Serif SC', STSong, Georgia, 'Times New Roman', serif;
+  --font-serif: 'Noto Serif SC', 'Songti SC', STSong, Georgia, 'Times New Roman', serif;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -42,7 +42,7 @@
 html, body {
   margin: 0; padding: 0;
   background: var(--bg); color: var(--text);
-  font-family: -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Helvetica Neue', 'Segoe UI', Arial, sans-serif;
+  font-family: var(--font-serif);
   -webkit-font-smoothing: antialiased;
   overscroll-behavior-y: none;
 }
@@ -91,26 +91,30 @@ button { font-family: inherit; }
 /* ---------------- 地点分组：顶层小色点 + 发丝线 ---------------- */
 .loc-group { margin-bottom: 18px; }
 .loc-header {
-  display: flex; align-items: baseline; gap: 8px;
+  display: flex; align-items: center; gap: 7px;
   padding: 0 12px 7px;
   font-size: 13px; color: var(--text-dim);
   letter-spacing: 0.2px;
+}
+/* 一级地点：线性小房子（陶土橙） */
+.loc-house {
+  flex: none;
+  width: 15px; height: 15px;
+  color: var(--accent);
+}
+/* 二级及更深：同色系小圆点 */
+.loc-dot {
+  flex: none;
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  opacity: .5;
 }
 .loc-header .loc-name {
   font-family: var(--font-serif);
   font-weight: 700;
   color: var(--text);
   font-size: 15.5px;
-}
-/* 顶层地点：7px 陶土橙小色点（仅一层，子级无图标） */
-#pendingList > .loc-group > .loc-header .loc-name::before {
-  content: '';
-  display: inline-block;
-  width: 7px; height: 7px;
-  border-radius: 50%;
-  background: var(--accent);
-  margin-right: 8px;
-  vertical-align: 2px;
 }
 .loc-header .loc-count {
   margin-left: auto; font-size: 12px; color: var(--text-faint);

@@ -191,8 +191,15 @@
     var html = '';
     if (depth > 0) {
       var total = countItems(node);
+      // 一级地点：线性小房子；二级及更深：同色系小圆点
+      var ico = depth === 1
+        ? '<svg class="loc-house" viewBox="0 0 24 24" fill="none" aria-hidden="true">' +
+          '<path d="M3.8 11.3 12 4.4l8.2 6.9" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>' +
+          '<path d="M6.2 9.9V19a1 1 0 0 0 1 1h9.6a1 1 0 0 0 1-1V9.9" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>' +
+          '</svg>'
+        : '<span class="loc-dot" aria-hidden="true"></span>';
       html += '<div class="loc-group">';
-      html += '<div class="loc-header"><span>📍</span><span class="loc-name">' + escapeHtml(node.name) + '</span>' +
+      html += '<div class="loc-header">' + ico + '<span class="loc-name">' + escapeHtml(node.name) + '</span>' +
         '<span class="loc-count">' + total + '</span></div>';
     }
     if (node.items.length) {
