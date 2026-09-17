@@ -10,6 +10,7 @@
   var doneOpen = false;
   var pushTimer = null;
   var lastDeleted = null;
+  var editingId = null;
 
   /* ---------------- 工具 ---------------- */
   function uid() { return Date.now().toString(36) + Math.random().toString(36).slice(2, 7); }
@@ -106,6 +107,23 @@
       createdAt: now,
       doneAt: 0,
       updatedAt: now,
+    });
+    commit();
+    return true;
+  }
+
+  function updatePackage(id, name, location, code) {
+    name = String(name || '').trim();
+    if (!name) return false;
+    location = String(location || '').trim() || '未分类';
+    code = String(code || '').trim();
+    state.packages.forEach(function (p) {
+      if (p.id === id) {
+        p.name = name;
+        p.location = location;
+        p.code = code;
+        p.updatedAt = Date.now();
+      }
     });
     commit();
     return true;
@@ -281,35 +299,63 @@
   }
   function hideToast() { $('toast').classList.remove('show'); }
 
-  /* ---------------- 添加表单 ---------------- */
-  function openSheet() {
+  /* ---------------- 添加/编辑表单 ---------------- */
+  function openSheet(item) {
+    editingId = item ? item.id : null;
+    $('sheetTitle').textContent = item ? '编辑取件' : '添加取件';
+    $('confirmAdd').textContent = item ? '保存' : '添加';
+    if (item) {
+      $('fName').value = item.name || '';
+      $('fLoc').value = item.location === '未分类' ? '' : (item.location || '');
+      $('fCode').value = item.code || '';
+    }
     $('sheetMask').hidden = false;
     setTimeout(function () { $('fName').focus(); }, 100);
   }
   function closeSheet() {
     $('sheetMask').hidden = true;
+    editingId = null;
     $('fName').value = '';
     $('fLoc').value = '';
     $('fCode').value = '';
   }
-  function confirmAdd() {
+  function confirmForm() {
     var name = $('fName').value;
     if (!String(name).trim()) { $('fName').focus(); showToast('请填写快递名称'); return; }
-    addPackage(name, $('fLoc').value, $('fCode').value);
+    if (editingId) {
+      updatePackage(editingId, name, $('fLoc').value, $('fCode').value);
+      showToast('已保存');
+    } else {
+      addPackage(name, $('fLoc').value, $('fCode').value);
+      showToast('已添加');
+    }
     closeSheet();
-    showToast('已添加');
   }
 
   /* ---------------- 事件绑定 ---------------- */
-  $('fab').addEventListener('click', openSheet);
+  $('fab').addEventListener('click', function () { openSheet(); });
   $('cancelAdd').addEventListener('click', closeSheet);
   $('sheetMask').addEventListener('click', function (e) { if (e.target === this) closeSheet(); });
-  $('confirmAdd').addEventListener('click', confirmAdd);
+  $('confirmAdd').addEventListener('click', confirmForm);
   ['fName', 'fLoc', 'fCode'].forEach(function (id) {
     $(id).addEventListener('keydown', function (e) {
-      if (e.key === 'Enter') { e.preventDefault(); confirmAdd(); }
+      if (e.key === 'Enter') { e.preventDefault(); confirmForm(); }
     });
   });
+
+  // 双击卡片文字区 → 打开编辑表单
+  function bindEdit(listId) {
+    $(listId).addEventListener('dblclick', function (e) {
+      if (!e.target.closest('.pkg-body')) return;
+      var li = e.target.closest('.pkg-item');
+      if (!li || li.classList.contains('dropping')) return;
+      var found = null;
+      state.packages.forEach(function (p) { if (p.id === li.dataset.id) found = p; });
+      if (found) openSheet(found);
+    });
+  }
+  bindEdit('pendingList');
+  bindEdit('doneList');
 
   // 列表事件委托
   $('pendingList').addEventListener('click', function (e) {
