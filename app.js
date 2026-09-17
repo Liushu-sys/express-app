@@ -166,7 +166,7 @@
       '<button class="dot' + (it.done ? ' on' : '') + '" data-act="toggle" aria-label="标记已取"></button>' +
       '<div class="pkg-body">' +
         '<div class="pkg-name">' + escapeHtml(it.name) + '</div>' +
-        '<div class="pkg-sub">📍 ' + escapeHtml(it.location) + '</div>' +
+        '<div class="pkg-sub">' + escapeHtml(it.location) + '</div>' +
       '</div>' +
       codeHtml +
       '<button class="del-btn" data-act="del" aria-label="删除">×</button>' +
@@ -179,7 +179,7 @@
       '<button class="dot on" data-act="toggle" aria-label="恢复"></button>' +
       '<div class="pkg-body">' +
         '<div class="pkg-name">' + escapeHtml(it.name) + '</div>' +
-        '<div class="pkg-sub">📍 ' + escapeHtml(it.location) + ' · ✓ ' + fmtTime(it.doneAt) + ' 已取</div>' +
+        '<div class="pkg-sub">' + escapeHtml(it.location) + ' · ' + fmtTime(it.doneAt) + ' 已取</div>' +
       '</div>' +
       codeHtml +
       '<button class="restore-btn" data-act="toggle">恢复</button>' +

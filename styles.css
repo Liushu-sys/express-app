@@ -1,36 +1,38 @@
-/* 取件助手 · iOS 清爽原生风 + 薄荷青（跟随系统深/浅色） */
+/* 取件助手 · Claude 纸感编辑风（暖米白 / 陶土橙 / 暖炭深色） */
 
 :root {
-  --accent: #0d9488;            /* 薄荷青 · 浅色模式主色（白底对比 4.5:1+） */
-  --accent-press: #0f766e;
-  --accent-soft: color-mix(in srgb, #0d9488 12%, transparent);
-  --bg: #f2f2f7;                /* iOS systemGroupedBackground */
+  --accent: #c15f3c;            /* 陶土橙 · 深阶（米白底对比 4.5:1+） */
+  --accent-press: #a94e2f;
+  --accent-soft: rgba(201, 100, 66, 0.12);
+  --success: #5e8a78;           /* 橄榄绿 · 已取语义 */
+  --bg: #faf9f5;                /* Anthropic 米白纸底 */
   --bg-soft: #ffffff;
   --card: #ffffff;
-  --text: #111114;
-  --text-dim: #6c6c70;          /* iOS secondaryLabel */
-  --text-faint: #8e8e93;        /* iOS systemGray */
-  --hairline: rgba(60, 60, 67, 0.29);   /* iOS separator */
-  --fill: rgba(120, 120, 128, 0.12);    /* iOS systemFill 弱 */
-  --success: #0d9488;
-  --radius: 16px;
-  --tabbar-bg: color-mix(in srgb, #f2f2f7 82%, transparent);
+  --text: #1f1e1d;              /* 暖墨色 */
+  --text-dim: #5e5d59;
+  --text-faint: #91908c;
+  --hairline: rgba(31, 30, 29, 0.13);
+  --fill: rgba(31, 30, 29, 0.055);
+  --radius: 14px;
+  --tabbar-bg: color-mix(in srgb, #faf9f5 84%, transparent);
+  --font-serif: 'Songti SC', 'Noto Serif SC', STSong, Georgia, 'Times New Roman', serif;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --accent: #2dd4bf;
-    --accent-press: #5eead4;
-    --accent-soft: color-mix(in srgb, #2dd4bf 16%, transparent);
-    --bg: #000000;
-    --bg-soft: #1c1c1e;
-    --card: #1c1c1e;
-    --text: #f2f2f7;
-    --text-dim: #98989f;
-    --text-faint: #636366;
-    --hairline: rgba(84, 84, 88, 0.6);
-    --fill: rgba(120, 120, 128, 0.22);
-    --tabbar-bg: color-mix(in srgb, #000000 72%, transparent);
+    --accent: #e8825d;
+    --accent-press: #f0997a;
+    --accent-soft: rgba(232, 130, 93, 0.16);
+    --success: #85b79f;
+    --bg: #262624;              /* Claude 暖炭 */
+    --bg-soft: #30302e;
+    --card: #30302e;
+    --text: #edebe4;
+    --text-dim: #b0aea6;
+    --text-faint: #7d7b74;
+    --hairline: rgba(237, 235, 228, 0.15);
+    --fill: rgba(237, 235, 228, 0.07);
+    --tabbar-bg: color-mix(in srgb, #262624 76%, transparent);
   }
 }
 
@@ -53,24 +55,25 @@ button { font-family: inherit; }
   padding-bottom: calc(env(safe-area-inset-bottom) + 96px);
 }
 
-/* ---------------- 顶部：iOS 大标题 + 毛玻璃 ---------------- */
+/* ---------------- 顶部：衬线大标题 + 毛玻璃 ---------------- */
 .topbar {
   position: sticky; top: 0; z-index: 10;
   display: flex; align-items: flex-end; justify-content: space-between;
-  padding: calc(env(safe-area-inset-top) + 14px) 20px 10px;
+  padding: calc(env(safe-area-inset-top) + 14px) 20px 12px;
   background: var(--tabbar-bg);
-  -webkit-backdrop-filter: saturate(180%) blur(20px);
-  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(160%) blur(18px);
+  backdrop-filter: saturate(160%) blur(18px);
   border-bottom: 1px solid var(--hairline);
 }
 .app-title h1 {
   margin: 0;
-  font-size: 30px;            /* iOS Large Title */
+  font-family: var(--font-serif);
+  font-size: 30px;
   font-weight: 700;
-  letter-spacing: -0.5px;
+  letter-spacing: 0;
   line-height: 1.15;
 }
-.app-title p { margin: 3px 0 0; font-size: 13px; color: var(--text-faint); }
+.app-title p { margin: 4px 0 0; font-size: 13px; color: var(--text-faint); }
 .top-stat {
   display: flex; flex-direction: column; align-items: center;
   padding: 5px 14px; border-radius: 12px;
@@ -85,7 +88,7 @@ button { font-family: inherit; }
 .view { animation: fade .18s ease; }
 @keyframes fade { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
 
-/* ---------------- 地点分组：iOS 分组标题 ---------------- */
+/* ---------------- 地点分组：顶层小色点 + 发丝线 ---------------- */
 .loc-group { margin-bottom: 18px; }
 .loc-header {
   display: flex; align-items: baseline; gap: 8px;
@@ -93,7 +96,22 @@ button { font-family: inherit; }
   font-size: 13px; color: var(--text-dim);
   letter-spacing: 0.2px;
 }
-.loc-header .loc-name { font-weight: 600; color: var(--text); font-size: 14px; }
+.loc-header .loc-name {
+  font-family: var(--font-serif);
+  font-weight: 700;
+  color: var(--text);
+  font-size: 15.5px;
+}
+/* 顶层地点：7px 陶土橙小色点（仅一层，子级无图标） */
+#pendingList > .loc-group > .loc-header .loc-name::before {
+  content: '';
+  display: inline-block;
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--accent);
+  margin-right: 8px;
+  vertical-align: 2px;
+}
 .loc-header .loc-count {
   margin-left: auto; font-size: 12px; color: var(--text-faint);
   font-variant-numeric: tabular-nums;
@@ -104,12 +122,13 @@ button { font-family: inherit; }
 }
 .loc-group .loc-group .loc-header { padding-bottom: 5px; }
 
-/* ---------------- 快递条目：iOS 内嵌分组列表 ---------------- */
+/* ---------------- 快递条目：内嵌分组列表 ---------------- */
 .pkg-list {
   list-style: none; margin: 0; padding: 0;
   background: var(--card);
   border-radius: var(--radius);
   overflow: hidden;
+  border: 1px solid var(--hairline);
 }
 .pkg-item {
   position: relative;
@@ -118,19 +137,18 @@ button { font-family: inherit; }
   transition: background .12s ease;
 }
 .pkg-item:active { background: var(--fill); }
-/* 发丝线分隔：从圆点右侧开始，iOS 风格缩进 */
 .pkg-item + .pkg-item::after {
   content: '';
   position: absolute; top: 0; left: 62px; right: 0;
   height: 1px;
   background: var(--hairline);
-  opacity: .5;
+  opacity: .6;
 }
 .pkg-body { flex: 1; min-width: 0; }
-.pkg-name { font-size: 16px; font-weight: 600; line-height: 1.3; word-break: break-word; }
+.pkg-name { font-size: 16px; font-weight: 600; line-height: 1.35; word-break: break-word; }
 .pkg-sub { margin-top: 2px; font-size: 12.5px; color: var(--text-faint); word-break: break-word; }
 
-/* 取货码：大号等宽字体，取件时一眼可读 */
+/* 取货码：大号等宽字体 */
 .pkg-code {
   flex: none;
   font-family: ui-monospace, 'SF Mono', SFMono-Regular, Menlo, monospace;
@@ -143,7 +161,7 @@ button { font-family: inherit; }
 }
 .pkg-code-sm { font-size: 13px; padding: 3px 8px; border-radius: 8px; font-weight: 500; }
 
-/* 圆点勾选：薄荷青 + 弹性动画 */
+/* 圆点勾选：橄榄绿 + 弹性动画 */
 .dot {
   flex: 0 0 auto;
   width: 24px; height: 24px;
@@ -156,7 +174,7 @@ button { font-family: inherit; }
   transition: border-color .15s ease, background .15s ease;
 }
 .dot.on {
-  background: var(--accent); border-color: var(--accent);
+  background: var(--success); border-color: var(--success);
   animation: pop .32s cubic-bezier(.34, 1.56, .64, 1);
 }
 .dot.on::after {
@@ -173,7 +191,7 @@ button { font-family: inherit; }
   color: var(--text-faint); font-size: 19px; line-height: 1;
   padding: 6px 6px; border-radius: 8px; cursor: pointer;
 }
-.del-btn:active { color: #ff3b30; }
+.del-btn:active { color: #c0392b; }
 
 /* ---------------- 已取区 ---------------- */
 .done-section {
@@ -188,7 +206,7 @@ button { font-family: inherit; }
   border-radius: 12px;
 }
 .done-toggle:active { background: var(--fill); }
-.done-toggle .done-toggle-label b { color: var(--accent); font-weight: 600; }
+.done-toggle .done-toggle-label b { color: var(--success); font-weight: 600; }
 .done-toggle .caret {
   margin-left: auto; transition: transform .2s;
   font-size: 12px; color: var(--text-faint);
@@ -213,14 +231,19 @@ button { font-family: inherit; }
   border-radius: 50%; background: var(--accent-soft);
   font-size: 30px; line-height: 64px;
 }
-.empty-title { margin: 0 0 6px; font-size: 17px; font-weight: 600; color: var(--text); }
+.empty-title {
+  margin: 0 0 6px;
+  font-family: var(--font-serif);
+  font-size: 17px; font-weight: 700; color: var(--text);
+}
 .empty-sub { margin: 0; font-size: 13.5px; line-height: 1.75; color: var(--text-faint); }
 .empty-sub b { color: var(--accent); }
 
 /* ---------------- 我的 ---------------- */
 .sec-title {
   margin: 22px 0 8px; padding: 0 12px;
-  font-size: 13px; font-weight: 600; color: var(--text-dim);
+  font-family: var(--font-serif);
+  font-size: 14px; font-weight: 700; color: var(--text-dim);
   letter-spacing: 0.3px;
 }
 .stat-grid {
@@ -230,6 +253,7 @@ button { font-family: inherit; }
 .stat-card {
   padding: 16px; border-radius: var(--radius);
   background: var(--card);
+  border: 1px solid var(--hairline);
   display: flex; flex-direction: column; gap: 3px;
 }
 .stat-card b { font-size: 28px; color: var(--accent); font-variant-numeric: tabular-nums; letter-spacing: -0.5px; }
@@ -239,6 +263,7 @@ button { font-family: inherit; }
   padding: 4px 14px;
   border-radius: var(--radius);
   background: var(--card);
+  border: 1px solid var(--hairline);
   display: flex; flex-direction: column;
 }
 .panel-row {
@@ -250,7 +275,7 @@ button { font-family: inherit; }
 .panel-row + .panel-row::after {
   content: '';
   position: absolute; top: 0; left: 0; right: 0;
-  height: 1px; background: var(--hairline); opacity: .5;
+  height: 1px; background: var(--hairline); opacity: .6;
 }
 .panel-row span:first-child { color: var(--text); }
 .muted { color: var(--text-faint); font-size: 13px; }
@@ -259,7 +284,6 @@ button { font-family: inherit; }
 .sync.syncing { color: var(--text-dim); }
 .panel-note { margin: 0; padding: 12px 0 14px; font-size: 12.5px; line-height: 1.7; color: var(--text-faint); }
 .panel .ghost-btn { margin: 0 -14px; padding: 12px 14px; }
-.panel .ghost-btn + .ghost-btn::after { content: none; }
 
 .ghost-btn {
   border: none; background: transparent;
@@ -270,7 +294,7 @@ button { font-family: inherit; }
 .ghost-btn + .ghost-btn::before {
   content: '';
   position: absolute; top: 0; left: 14px; right: 0;
-  height: 1px; background: var(--hairline); opacity: .5;
+  height: 1px; background: var(--hairline); opacity: .6;
 }
 .ghost-btn:active { background: var(--fill); }
 
@@ -283,7 +307,7 @@ button { font-family: inherit; }
   background: var(--accent);
   color: #fff;
   cursor: pointer;
-  box-shadow: 0 8px 24px color-mix(in srgb, var(--accent) 38%, transparent);
+  box-shadow: 0 8px 24px color-mix(in srgb, var(--accent) 36%, transparent);
   transition: transform .15s ease;
 }
 .fab::before, .fab::after {
@@ -301,8 +325,8 @@ button { font-family: inherit; }
   max-width: 640px; margin: 0 auto;
   padding: 6px 8px calc(env(safe-area-inset-bottom) + 6px);
   background: var(--tabbar-bg);
-  -webkit-backdrop-filter: saturate(180%) blur(20px);
-  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(160%) blur(18px);
+  backdrop-filter: saturate(160%) blur(18px);
   border-top: 1px solid var(--hairline);
 }
 .tab {
@@ -316,11 +340,11 @@ button { font-family: inherit; }
 .tab svg { width: 24px; height: 24px; }
 .tab.active { color: var(--accent); }
 
-/* ---------------- 底部弹层（添加表单）：iOS 卡片式表单 ---------------- */
+/* ---------------- 底部弹层（添加表单） ---------------- */
 .sheet-mask {
   position: fixed; inset: 0; z-index: 60;
   display: flex; align-items: flex-end;
-  background: rgba(0, 0, 0, .45);
+  background: rgba(31, 30, 29, .42);
 }
 .sheet {
   width: 100%; max-width: 640px; margin: 0 auto;
@@ -333,9 +357,14 @@ button { font-family: inherit; }
   width: 36px; height: 5px; border-radius: 2.5px;
   background: var(--fill); margin: 4px auto 14px;
 }
-.sheet h3 { margin: 0 4px 14px; font-size: 20px; font-weight: 700; letter-spacing: -0.3px; }
+.sheet h3 {
+  margin: 0 4px 14px;
+  font-family: var(--font-serif);
+  font-size: 20px; font-weight: 700; letter-spacing: 0;
+}
 .sheet-group {
   background: var(--card);
+  border: 1px solid var(--hairline);
   border-radius: 14px;
   overflow: hidden;
 }
@@ -348,7 +377,7 @@ button { font-family: inherit; }
 .field + .field::after {
   content: '';
   position: absolute; top: 0; left: 14px; right: 0;
-  height: 1px; background: var(--hairline); opacity: .5;
+  height: 1px; background: var(--hairline); opacity: .6;
 }
 .field span { font-size: 15px; color: var(--text); flex: none; width: 76px; }
 .field input {
@@ -381,7 +410,8 @@ button { font-family: inherit; }
   padding: 11px 18px;
   border-radius: 14px;
   background: var(--bg-soft);
-  box-shadow: 0 6px 24px rgba(0, 0, 0, .16);
+  border: 1px solid var(--hairline);
+  box-shadow: 0 6px 24px rgba(31, 30, 29, .12);
   color: var(--text); font-size: 14px;
   opacity: 0; pointer-events: none;
   transition: opacity .2s, transform .2s;
@@ -392,14 +422,15 @@ button { font-family: inherit; }
 .guide-mask {
   position: fixed; inset: 0; z-index: 50;
   display: flex; align-items: flex-end;
-  background: rgba(0, 0, 0, .45);
+  background: rgba(31, 30, 29, .42);
   padding: 16px;
 }
 .guide-card {
   width: 100%; max-width: 480px; margin: 0 auto;
   padding: 22px; border-radius: 20px;
   background: var(--bg-soft);
-  box-shadow: 0 12px 40px rgba(0, 0, 0, .2);
+  border: 1px solid var(--hairline);
+  box-shadow: 0 12px 40px rgba(31, 30, 29, .16);
   animation: rise .25s cubic-bezier(.32, .72, 0, 1);
 }
 @keyframes rise { from { transform: translateY(28px); opacity: 0; } to { transform: none; opacity: 1; } }
@@ -408,7 +439,11 @@ button { font-family: inherit; }
   border-radius: 14px; background: var(--accent-soft);
   font-size: 24px; line-height: 48px; text-align: center;
 }
-.guide-card h3 { margin: 0 0 10px; font-size: 18px; font-weight: 700; }
+.guide-card h3 {
+  margin: 0 0 10px;
+  font-family: var(--font-serif);
+  font-size: 18px; font-weight: 700;
+}
 .guide-body { font-size: 14px; line-height: 1.75; color: var(--text-dim); }
 .guide-body p { margin: 0 0 8px; }
 .guide-body ol { margin: 0 0 8px; padding-left: 20px; }
