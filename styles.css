@@ -43,7 +43,7 @@ html, body {
   margin: 0; padding: 0;
   background: var(--bg); color: var(--text);
   font-family: var(--font-serif);
-  font-weight: 600;
+  font-weight: 800;
   -webkit-font-smoothing: antialiased;
   overscroll-behavior-y: none;
 }
@@ -70,7 +70,7 @@ button { font-family: inherit; }
   margin: 0;
   font-family: var(--font-serif);
   font-size: 30px;
-  font-weight: 700;
+  font-weight: 900;
   letter-spacing: 0;
   line-height: 1.15;
 }
@@ -113,7 +113,7 @@ button { font-family: inherit; }
 }
 .loc-header .loc-name {
   font-family: var(--font-serif);
-  font-weight: 700;
+  font-weight: 900;
   color: var(--text);
   font-size: 15.5px;
 }
@@ -150,21 +150,21 @@ button { font-family: inherit; }
   opacity: .6;
 }
 .pkg-body { flex: 1; min-width: 0; }
-.pkg-name { font-size: 16px; font-weight: 600; line-height: 1.35; word-break: break-word; }
+.pkg-name { font-size: 16px; font-weight: 800; line-height: 1.35; word-break: break-word; }
 .pkg-sub { margin-top: 2px; font-size: 12.5px; color: var(--text-faint); word-break: break-word; }
 
 /* 取货码：大号等宽字体 */
 .pkg-code {
   flex: none;
   font-family: ui-monospace, 'SF Mono', SFMono-Regular, Menlo, monospace;
-  font-size: 19px; font-weight: 600; letter-spacing: 0.03em;
+  font-size: 19px; font-weight: 800; letter-spacing: 0.03em;
   color: var(--accent);
   background: var(--accent-soft);
   padding: 7px 11px;
   border-radius: 10px;
   font-variant-numeric: tabular-nums;
 }
-.pkg-code-sm { font-size: 13px; padding: 3px 8px; border-radius: 8px; font-weight: 500; }
+.pkg-code-sm { font-size: 13px; padding: 3px 8px; border-radius: 8px; font-weight: 700; }
 
 /* 圆点勾选：橄榄绿 + 弹性动画 */
 .dot {
@@ -211,7 +211,7 @@ button { font-family: inherit; }
   border-radius: 12px;
 }
 .done-toggle:active { background: var(--fill); }
-.done-toggle .done-toggle-label b { color: var(--success); font-weight: 600; }
+.done-toggle .done-toggle-label b { color: var(--success); font-weight: 800; }
 .done-toggle .caret {
   margin-left: auto; transition: transform .2s;
   font-size: 12px; color: var(--text-faint);
@@ -224,7 +224,7 @@ button { font-family: inherit; }
 .restore-btn {
   flex: 0 0 auto;
   border: none; background: var(--accent-soft);
-  color: var(--accent); font-size: 13px; font-weight: 500;
+  color: var(--accent); font-size: 13px; font-weight: 700;
   padding: 6px 12px; border-radius: 99px; cursor: pointer;
 }
 .restore-btn:active { background: var(--accent-soft); filter: brightness(.92); }
@@ -239,7 +239,7 @@ button { font-family: inherit; }
 .empty-title {
   margin: 0 0 6px;
   font-family: var(--font-serif);
-  font-size: 17px; font-weight: 700; color: var(--text);
+  font-size: 17px; font-weight: 900; color: var(--text);
 }
 .empty-sub { margin: 0; font-size: 13.5px; line-height: 1.75; color: var(--text-faint); }
 .empty-sub b { color: var(--accent); }
@@ -248,7 +248,7 @@ button { font-family: inherit; }
 .sec-title {
   margin: 22px 0 8px; padding: 0 12px;
   font-family: var(--font-serif);
-  font-size: 14px; font-weight: 700; color: var(--text-dim);
+  font-size: 14px; font-weight: 900; color: var(--text-dim);
   letter-spacing: 0.3px;
 }
 .stat-grid {
@@ -284,7 +284,7 @@ button { font-family: inherit; }
 }
 .panel-row span:first-child { color: var(--text); }
 .muted { color: var(--text-faint); font-size: 13px; }
-.sync { font-size: 13px; color: var(--accent); font-weight: 500; }
+.sync { font-size: 13px; color: var(--accent); font-weight: 700; }
 .sync.offline { color: var(--text-faint); }
 .sync.syncing { color: var(--text-dim); }
 .panel-note { margin: 0; padding: 12px 0 14px; font-size: 12.5px; line-height: 1.7; color: var(--text-faint); }
@@ -365,7 +365,7 @@ button { font-family: inherit; }
 .sheet h3 {
   margin: 0 4px 14px;
   font-family: var(--font-serif);
-  font-size: 20px; font-weight: 700; letter-spacing: 0;
+  font-size: 20px; font-weight: 900; letter-spacing: 0;
 }
 .sheet-group {
   background: var(--card);
@@ -400,7 +400,7 @@ button { font-family: inherit; }
   flex: 1; padding: 14px; border-radius: 14px;
   border: none;
   background: var(--fill);
-  color: var(--accent); font-size: 16px; font-weight: 600; cursor: pointer;
+  color: var(--accent); font-size: 16px; font-weight: 800; cursor: pointer;
 }
 .gbtn.primary { background: var(--accent); color: #fff; }
 .gbtn:active { opacity: .8; }
@@ -422,7 +422,7 @@ button { font-family: inherit; }
   transition: opacity .2s, transform .2s;
 }
 .toast.show { opacity: 1; transform: translate(-50%, 0); pointer-events: auto; }
-.toast button { border: none; background: transparent; color: var(--accent); font-size: 14.5px; font-weight: 600; cursor: pointer; }
+.toast button { border: none; background: transparent; color: var(--accent); font-size: 14.5px; font-weight: 800; cursor: pointer; }
 
 .guide-mask {
   position: fixed; inset: 0; z-index: 50;
@@ -447,7 +447,7 @@ button { font-family: inherit; }
 .guide-card h3 {
   margin: 0 0 10px;
   font-family: var(--font-serif);
-  font-size: 18px; font-weight: 700;
+  font-size: 18px; font-weight: 900;
 }
 .guide-body { font-size: 14px; line-height: 1.75; color: var(--text-dim); }
 .guide-body p { margin: 0 0 8px; }
